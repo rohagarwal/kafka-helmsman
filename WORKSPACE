@@ -12,15 +12,6 @@ http_archive(
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 
 bazel_skylib_workspace()
-
-load("@bazel_skylib//lib:versions.bzl", "versions")
-
-versions.check(
-    # Maximum version is inclusive, so set the maximum minor version to 99.
-    # This allows us to freely switch between minor versions without touching the WORKSPACE file.
-    maximum_bazel_version = "5.99.0",
-    minimum_bazel_version = "5.0.0",
-)
 #-- Skylib end --#
 
 #-- Maven start --#

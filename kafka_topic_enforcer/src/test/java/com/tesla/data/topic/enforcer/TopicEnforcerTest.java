@@ -50,18 +50,15 @@ public class TopicEnforcerTest {
         new ConfiguredTopic("b", 3, (short) 1, Collections.emptyMap()),
         new ConfiguredTopic("c", 3, (short) 3, Collections.emptyMap()));
 
-    Map<String, ConfiguredTopic> existing = new HashMap<String, ConfiguredTopic>() {
-      {
-        // cluster topic has less replicas than configured but same partitions, we do not care!
-        put("a", new ConfiguredTopic("a", 1, (short) 1, Collections.emptyMap()));
-        // cluster topic has less partitions than configured, we care!
-        put("b", new ConfiguredTopic("b", 1, (short) 1, Collections.emptyMap()));
-        // cluster topic has less partitions than configured and less replicas, we care (about the partitions)!
-        put("c", new ConfiguredTopic("c", 1, (short) 1, Collections.emptyMap()));
-        // cluster has an extra topic that is not configured to be present, we do not care!
-        put("d", new ConfiguredTopic("b", 1, (short) 1, Collections.emptyMap()));
-      }
-    };
+    Map<String, ConfiguredTopic> existing = new HashMap<>();
+    // cluster topic has less replicas than configured but same partitions, we do not care!
+    existing.put("a", new ConfiguredTopic("a", 1, (short) 1, Collections.emptyMap()));
+    // cluster topic has less partitions than configured, we care!
+    existing.put("b", new ConfiguredTopic("b", 1, (short) 1, Collections.emptyMap()));
+    // cluster topic has less partitions than configured and less replicas, we care (about the partitions)!
+    existing.put("c", new ConfiguredTopic("c", 1, (short) 1, Collections.emptyMap()));
+    // cluster has an extra topic that is not configured to be present, we do not care!
+    existing.put("d", new ConfiguredTopic("b", 1, (short) 1, Collections.emptyMap()));
 
     when(service.listExisting(true)).thenReturn(existing);
     TopicEnforcer enforcer = new TopicEnforcer(service, configured, true);
@@ -83,17 +80,14 @@ public class TopicEnforcerTest {
         new ConfiguredTopic("c", 1, (short) 1, Collections.emptyMap()),
         new ConfiguredTopic("d", 1, (short) 3, Collections.emptyMap()));
 
-    Map<String, ConfiguredTopic> existing = new HashMap<String, ConfiguredTopic>() {
-      {
-        // cluster topic has as some config overrides
-        put("a", new ConfiguredTopic("a", 1, (short) 1, Collections.singletonMap("k", "v")));
-        // no change in topic config, partition count should be ignored
-        put("b", new ConfiguredTopic("b", 3, (short) 1, Collections.emptyMap()));
-        // topic 'c' is no present in the cluster
-        // cluster topic has some config overrides and less replicas, we care (about the config overrides)
-        put("d", new ConfiguredTopic("d", 1, (short) 1, Collections.singletonMap("k", "v")));
-      }
-    };
+    Map<String, ConfiguredTopic> existing = new HashMap<>();
+    // cluster topic has as some config overrides
+    existing.put("a", new ConfiguredTopic("a", 1, (short) 1, Collections.singletonMap("k", "v")));
+    // no change in topic config, partition count should be ignored
+    existing.put("b", new ConfiguredTopic("b", 3, (short) 1, Collections.emptyMap()));
+    // topic 'c' is no present in the cluster
+    // cluster topic has some config overrides and less replicas, we care (about the config overrides)
+    existing.put("d", new ConfiguredTopic("d", 1, (short) 1, Collections.singletonMap("k", "v")));
 
     when(service.listExisting(true)).thenReturn(existing);
     TopicEnforcer enforcer = new TopicEnforcer(service, configured, true);

@@ -98,20 +98,16 @@ public class TopicServiceImplTest {
     ConfigEntry configEntry = new ConfigEntry("k", "v");
     KafkaFuture<Config> kfc = KafkaFuture.completedFuture(new Config(Collections.singletonList(configEntry)));
     Set<String> topicNames = new HashSet<>(Arrays.asList("a", "b", "_c"));
-    Map<String, TopicDescription> tds = new HashMap<String, TopicDescription>() {
-      {
-        put("a", new TopicDescription("a", false, Collections.singletonList(tp)));
-        put("b", new TopicDescription("b", false, Collections.singletonList(tp)));
-        put("c", new TopicDescription("_c", false, Collections.singletonList(tp)));
-      }
-    };
-    Map<ConfigResource, KafkaFuture<Config>> configs = new HashMap<ConfigResource, KafkaFuture<Config>>() {
-      {
-        put(new ConfigResource(TOPIC, "a"), kfc);
-        put(new ConfigResource(TOPIC, "b"), kfc);
-        put(new ConfigResource(TOPIC, "_c"), kfc);
-      }
-    };
+
+    Map<String, TopicDescription> tds = new HashMap<>();
+    tds.put("a", new TopicDescription("a", false, Collections.singletonList(tp)));
+    tds.put("b", new TopicDescription("b", false, Collections.singletonList(tp)));
+    tds.put("c", new TopicDescription("_c", false, Collections.singletonList(tp)));
+
+    Map<ConfigResource, KafkaFuture<Config>> configs = new HashMap<>();
+    configs.put(new ConfigResource(TOPIC, "a"), kfc);
+    configs.put(new ConfigResource(TOPIC, "b"), kfc);
+    configs.put(new ConfigResource(TOPIC, "_c"), kfc);
 
     TopicService service = new TopicServiceImpl(adminClient, true);
     ListTopicsResult listTopicsResult = mock(ListTopicsResult.class);
