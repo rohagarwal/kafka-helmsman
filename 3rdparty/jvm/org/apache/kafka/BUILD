@@ -22,7 +22,7 @@ scala_import(
         "//3rdparty/jvm/org/apache/zookeeper",
         "//3rdparty/jvm/org/scala_lang:scala_library",
         "//3rdparty/jvm/org/scala_lang:scala_reflect",
-        "//3rdparty/jvm/org/scala_lang/modules:scala_collection_compat_2_12",
+        "//3rdparty/jvm/org/scala_lang/modules:scala_collection_compat",
         "//3rdparty/jvm/org/scala_lang/modules:scala_java8_compat",
         "//3rdparty/jvm/org/slf4j:slf4j_api",
     ],

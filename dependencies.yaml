@@ -1,5 +1,5 @@
 options:
-  languages: [ "java", "scala:2.12.16" ]
+  languages: [ "java", "scala:2.12.18" ]
   resolvers:
     - id: "mavencentral"
       type: "default"
@@ -94,13 +94,6 @@ dependencies:
       lang: java
       version: "3.7"
 
-  org.apache.zookeeper:
-    zookeeper:
-      exclude:
-        - "org.slf4j:slf4j-log4j12"
-      lang: java
-      version: "3.5.10"
-
   org.apache.kafka:
     kafka:
       lang: scala
@@ -111,6 +104,13 @@ dependencies:
     kafka-clients:jar:test:
       lang: java
       version: "2.8.1"
+
+  org.apache.zookeeper:
+    zookeeper:
+      exclude:
+        - "org.slf4j:slf4j-log4j12"
+      lang: java
+      version: "3.5.10"
 
   org.bouncycastle:
     bcpkix-jdk15on:
@@ -133,8 +133,8 @@ dependencies:
 
   org.scala-lang:
     scala-library:
-      lang: java
-      version: "2.12.16"
+      lang: scala/unmangled
+      version: "2.12.18"
 
   org.scala-lang.modules:
     scala-java8-compat:
@@ -150,7 +150,7 @@ replacements:
   org.scala-lang:
     scala-library:
       lang: scala/unmangled
-      target: "@io_bazel_rules_scala_scala_library//:io_bazel_rules_scala_scala_library"
+      target: "@io_bazel_rules_scala_scala_library"
     scala-reflect:
       lang: scala/unmangled
-      target: "@io_bazel_rules_scala_scala_reflect//:io_bazel_rules_scala_scala_reflect"
+      target: "@io_bazel_rules_scala_scala_reflect"

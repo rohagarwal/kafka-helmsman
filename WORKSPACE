@@ -57,18 +57,16 @@ http_file(
 #-- Scala begin --#
 # version of the rules themselves, update this as needed to match the bazel version,
 # based on https://github.com/bazelbuild/rules_scala#bazel-compatible-versions
-RULES_SCALA_VERSION = "972fdf2b3bda64138db34a630a9910eee96b4d8a"
-
 http_archive(
     name = "io_bazel_rules_scala",
-    sha256 = "d1eb5719d7a082c30c3041c8e87a31d41115a9147da718b395b80926f9e47708",
-    strip_prefix = "rules_scala-%s" % RULES_SCALA_VERSION,
-    url = "https://github.com/bazelbuild/rules_scala/archive/%s.tar.gz" % RULES_SCALA_VERSION,
+    sha256 = "9a23058a36183a556a9ba7229b4f204d3e68c8c6eb7b28260521016b38ef4e00",
+    strip_prefix = "rules_scala-6.4.0",
+    url = "https://github.com/bazelbuild/rules_scala/releases/download/v6.4.0/rules_scala-v6.4.0.tar.gz",
 )
 
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
 
-scala_config(scala_version = "2.12.16")
+scala_config(scala_version = "2.12.18")
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 
